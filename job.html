@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+</head>
+<body>
+
+<h1>Job Application Form</h1>
+
+<form id="jobApplicationForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="cv">CV (PDF or Word):</label>
+    <input type="file" id="cv" name="cv" accept=".pdf, .doc, .docx" required>
+
+    <label for="resume">Resume (PDF or Word):</label>
+    <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required>
+   <label for="age">Age:</label>
+  <input type="number" id="age" name="age" required>
+
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+
+    <label for="kraPin">KRA Pin:</label>
+    <input type="text" id="kraPin" name="kraPin" required>
+
+    <label for="idNumber">ID Number:</label>
+    <input type="text" id="idNumber" name="idNumber" required maxlength="8">
+
+    <label for="position">Position Applying For:</label>
+    <select id="position" name="position" required>
+        <option value="" disabled selected>Select Position</option>
+        <option value="developer">Developer</option>
+        <option value="designer">Designer</option>
+        <option value="manager">Manager</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <label for="telephone">Telephone Number:</label>
+    <input type="tel" id="telephone" name="telephone" pattern="^(?:254|\+254|0)?((?:(?:7(?:(?:[01249][0-9])|(?:5[789])|(?:6[89])))|(?:1(?:[1][0-5])))[0-9]{6})$" title="Please enter a valid Safaricom number" required maxlength="12" placeholder="254XXXXXXXXX">
+
+    <button type="button" onclick="submitApplication()">Submit Application</button>
+</form>
+
+<script>
+    // JavaScript for basic form validation
+    document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
+        // Validate the form fields here
+        // For simplicity, you can add more sophisticated validation logic
+
+        // Example: Check if the age is a valid number
+        var ageInput = document.getElementById("age");
+        if (isNaN(ageInput.value)) {
+            alert("Please enter a valid age.");
+            event.preventDefault();
+        }
+
+        // Example: Check if the ID number is 8 numerical values
+        var idNumberInput = document.getElementById("idNumber");
+        if (!/^\d{8}$/.test(idNumberInput.value)) {
+            alert("Please enter a valid 8-digit ID number.");
+            event.preventDefault();
+        }
+    });
+
+    function submitApplication() {
+        // Get the telephone number input value
+        var phoneNumber = document.getElementById("telephone").value;
+        var ageInput = document.getElementById("age").value;
+        // Validate the phone number before proceeding
+        if (!/^(?:254|\+254|0)?((?:(?:7(?:(?:[01249][0-9])|(?:5[789])|(?:6[89])))|(?:1(?:[1][0-5])))[0-9]{6})$/.test(phoneNumber)) {
+            alert("Please enter a valid Safaricom number.");
+            return;
+        }
+        // Validate the age
+        if (isNaN(ageInput) || parseInt(ageInput) < 18) {
+            alert("You must be 18 years or older to apply.");
+            return;
+        }
+       // Use AJAX to call the PHP script
+       var xhr = new XMLHttpRequest();
+        xhr.open("POST", "mpesa_payment.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Handle the response, e.g., show a success message
+                alert(xhr.responseText);
+            }
+        };
+
+        // Send the phone number as POST data
+        xhr.send("phone_number=" + encodeURIComponent(phoneNumber));
+    }
+    
+</script>
+
+</body>
+</html>

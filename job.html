@@ -1,16 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #007BFF;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script src="script.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Application Form</title>
+    <title> REALMARK PROPERTIES</title>
 </head>
 <body>
 
-<h1>Job Application Form</h1>
+<header><h1> REALMARK PROPERTIES</h1></header>
+<nav>
+    <a href="main.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="job.html">Applications</a>
+    <a href="properties.html">Properties</a>
+    <a href="blog.html">Blog</a>
+</nav>
+<section>
+<form id="jobApplicationForm" action="submit.php" method="post">
 
-<form id="jobApplicationForm">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required>
 
@@ -26,11 +82,19 @@
   <input type="number" id="age" name="age" required>
 
 
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
+  <label for="location">Location:</label>
+  <select id="location" name="location" required>
+      <option value="" disabled selected>Select Location</option>
+      <option value="Nairobi">Nairobi</option>
+      <option value="Kisumu">Kisumu</option>
+      <option value="Mombasa">Mombasa</option>
+      <option value="Nakuru">Nakuru</option>
+      <option value="Eldoret">Eldoret</option>
+      <option value="Other">Other</option>
+  </select>
 
     <label for="kraPin">KRA Pin:</label>
-    <input type="text" id="kraPin" name="kraPin" required>
+    <input type="text" id="kraPin" name="kraPin" required maxlength="11">
 
     <label for="idNumber">ID Number:</label>
     <input type="text" id="idNumber" name="idNumber" required maxlength="8">
@@ -49,58 +113,7 @@
 
     <button type="button" onclick="submitApplication()">Submit Application</button>
 </form>
-
-<script>
-    // JavaScript for basic form validation
-    document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
-        // Validate the form fields here
-        // For simplicity, you can add more sophisticated validation logic
-
-        // Example: Check if the age is a valid number
-        var ageInput = document.getElementById("age");
-        if (isNaN(ageInput.value)) {
-            alert("Please enter a valid age.");
-            event.preventDefault();
-        }
-
-        // Example: Check if the ID number is 8 numerical values
-        var idNumberInput = document.getElementById("idNumber");
-        if (!/^\d{8}$/.test(idNumberInput.value)) {
-            alert("Please enter a valid 8-digit ID number.");
-            event.preventDefault();
-        }
-    });
-
-    function submitApplication() {
-        // Get the telephone number input value
-        var phoneNumber = document.getElementById("telephone").value;
-        var ageInput = document.getElementById("age").value;
-        // Validate the phone number before proceeding
-        if (!/^(?:254|\+254|0)?((?:(?:7(?:(?:[01249][0-9])|(?:5[789])|(?:6[89])))|(?:1(?:[1][0-5])))[0-9]{6})$/.test(phoneNumber)) {
-            alert("Please enter a valid Safaricom number.");
-            return;
-        }
-        // Validate the age
-        if (isNaN(ageInput) || parseInt(ageInput) < 18) {
-            alert("You must be 18 years or older to apply.");
-            return;
-        }
-       // Use AJAX to call the PHP script
-       var xhr = new XMLHttpRequest();
-        xhr.open("POST", "mpesa_payment.php", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // Handle the response, e.g., show a success message
-                alert(xhr.responseText);
-            }
-        };
-
-        // Send the phone number as POST data
-        xhr.send("phone_number=" + encodeURIComponent(phoneNumber));
-    }
-    
-</script>
-
+</section>
+<label for="Creator" id="creator">Designed by Xploit1017</label>
 </body>
 </html>

@@ -1,8 +1,8 @@
 # PaymentAPP
-Web Payment APP For Job Applications
-Hello guys, My name is Derrick and today we are going to create a simple job application WebApp that allows users to apply for a job after Paying a small Application Fee.
+Mpesa Implementation Web Payment Page For Job Applications
+Hello guys, My name is Xploit1017 and today we are going to create a simple job application WebPage that allows users to apply for a job after Paying a small Application Fee.
 The WebApp uses PHP for server-side scripting and handling data while the Frontend part is mainly HTML and CSS.
-The App utilizes the Mpesa-Api for payments 
+The page utilizes the Mpesa-Api for payments 
 ********************************************************************************************************************************************************************************
                                                                         APP LOGIC
    The user is Initially required to fill in all the form fields and hit Submit at the end of the Application
